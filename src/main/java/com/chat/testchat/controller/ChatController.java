@@ -24,14 +24,14 @@ public class ChatController {
     @SendTo("/chatroom/public")
     public Message receiveMessage(@Payload Message message){
         System.out.println(message);
-        message.setDate(Instant.now());
+        message.setCreationDate(Instant.now());
         repository.save(message).subscribe();
         return message;
     }
 
     @MessageMapping("/private-message")
     public Message recMessage(@Payload Message message){
-        message.setDate(Instant.now());
+        message.setCreationDate(Instant.now());
         simpMessagingTemplate.convertAndSendToUser(message.getIdReceiver(),"/private",message);
 
         System.out.println(message);

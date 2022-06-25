@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class MessageController {
 
     private final MessageUseCase messageUseCase;
-    private Logger logger = LoggerFactory.getLogger(MessageController.class);
+    private static Logger logger = LoggerFactory.getLogger(MessageController.class);
 }

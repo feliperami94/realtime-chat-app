@@ -4,6 +4,7 @@ import com.chat.testchat.usecases.ChannelUseCase;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
@@ -11,5 +12,5 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ChannelController {
 
     private final ChannelUseCase channelUseCase;
-    private Logger logger = LoggerFactory.getLogger(ChannelController.class);
+    private static Logger logger = LoggerFactory.getLogger(ChannelController.class);
 }

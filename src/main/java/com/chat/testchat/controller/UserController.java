@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class UserController {
 
     private final UserUseCase userUseCase;
-    private Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static Logger logger = LoggerFactory.getLogger(UserController.class);
 }

@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
+import java.util.List;
 
 @Document
 @Data
@@ -21,8 +22,8 @@ public class Message {
     private String id;
     private String idSender;
     private String idReceiver;
-    private String content;
-    private Instant date;
-    private Status status;
+    private String message;
+    private Instant creationDate;
+    private Status status; //TODO Optional
     private Boolean isSeen;
 }
