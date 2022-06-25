@@ -24,7 +24,7 @@ public class UserUseCase {
      * @param id String
      * @return User
      */
-    private Mono<User> findUserById(String id) {
+    public Mono<User> findUserById(String id) {
         return repository.findUserById(id).switchIfEmpty(Mono.error(new Throwable("There's not such user")));
     }
 
@@ -34,7 +34,8 @@ public class UserUseCase {
      * @param email String
      * @return User
      */
-    private Mono<User> findUserByEmail(String email) {
+    public Mono<User> findUserByEmail(String email) {
         return repository.findUserByEmail(email).switchIfEmpty(Mono.error(new Throwable("There's not such user")));
     }
+
 }

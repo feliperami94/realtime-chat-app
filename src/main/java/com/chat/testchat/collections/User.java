@@ -20,5 +20,5 @@ public class User {
     private String id;
     private String userName;
     private String email;
-    private List<User> contacts;
+    private List<String> contacts;
 }

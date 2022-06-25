@@ -12,4 +12,6 @@ public class MessageController {
 
     private final MessageUseCase messageUseCase;
     private static Logger logger = LoggerFactory.getLogger(MessageController.class);
+
+//    public
 }
