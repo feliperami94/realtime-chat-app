@@ -10,5 +10,5 @@ public interface ChannelRepository extends ReactiveMongoRepository<Channel, Stri
 
     Mono<Channel> findChannelById(String id);
 
-    Mono<Channel> findChannelByName(String id);
+    Mono<Channel> findChannelByName(String name);
 }
