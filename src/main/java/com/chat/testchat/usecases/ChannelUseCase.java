@@ -61,7 +61,7 @@ public class ChannelUseCase {
     /**
      * Create Channel
      * @param channelDto ChannelDto
-     * @return Channel
+     * @return ChannelDto
      */
 
     public Mono<ChannelDto> createChannel(ChannelDto channelDto){
@@ -78,6 +78,12 @@ public class ChannelUseCase {
         return repository.deleteById(channelId).doOnError(throwable -> Mono.error(throwable.getCause()));
     }
 
+
+    /**
+     * Update Channel
+     * @param channelDto ChannelDto
+     * @return ChannelDto
+     */
     public Mono<ChannelDto> updateChannel(ChannelDto channelDto){
         Query query = new Query().addCriteria(Criteria.where("_id").is(channelDto.getId()));
         Update update = new Update().set("name", channelDto.getName())
