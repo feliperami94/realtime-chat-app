@@ -13,7 +13,6 @@ import reactor.core.publisher.Mono;
 @RestControllerAdvice
 @AllArgsConstructor
 @RequestMapping(value = "/channel")
-
 public class ChannelController {
 
     private final ChannelUseCase channelUseCase;
@@ -42,8 +41,4 @@ public class ChannelController {
     public Mono<ChannelDto> updateChannel(@RequestBody ChannelDto channelDto){
         return channelUseCase.updateChannel(channelDto);
     }
-
-
-
-
 }
