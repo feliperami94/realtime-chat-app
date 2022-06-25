@@ -38,4 +38,6 @@ public class UserUseCase {
         return repository.findUserByEmail(email).switchIfEmpty(Mono.error(new Throwable("There's not such user")));
     }
 
+    public Mono<>
+
 }

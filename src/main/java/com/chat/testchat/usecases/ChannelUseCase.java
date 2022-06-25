@@ -18,7 +18,7 @@ import java.time.Instant;
 /**
  * ChannelUseCase - services
  *
- * @author dannielf
+ * @author dannielf - feliperami94
  * @version 0.0.1
  * @since 0.0.1
  */
@@ -35,8 +35,9 @@ public class ChannelUseCase {
      * @param id String
      * @return Channel
      */
-    public Mono<Channel> findChannelById(String id) {
-        return repository.findChannelById(id).switchIfEmpty(Mono.error(new Throwable("There's no such channel")));
+    public Mono<ChannelDto> findChannelById(String id) {
+        return repository.findChannelById(id).map(channelMapper::channelToChannelDTO)
+                .switchIfEmpty(Mono.error(new Throwable("There's no such channel")));
     }
 
     /**
@@ -44,8 +45,9 @@ public class ChannelUseCase {
      * @param name String
      * @return Channel
      */
-    public Mono<Channel> findChannelByName(String name) {
-        return repository.findChannelByName(name).switchIfEmpty(Mono.error(new Throwable("There's no such channel")));
+    public Mono<ChannelDto> findChannelByName(String name) {
+        return repository.findChannelByName(name).map(channelMapper::channelToChannelDTO)
+                .switchIfEmpty(Mono.error(new Throwable("There's no such channel")));
     }
 
     /**
