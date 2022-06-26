@@ -31,17 +31,20 @@ public class MessageController {
     }
 
     @GetMapping(path = "/private/{idSender}/{idReceiver}")
+    @ResponseStatus(HttpStatus.OK)
     public Flux<MessageDto> findByIdSenderAndIdReceiver(@PathVariable("idSender") String idSender,
                                                         @PathVariable("idReceiver") String idReceiver) {
         return messageUseCase.findAllByIdSenderAndIdReceiver(idSender, idReceiver);
     }
 
     @DeleteMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public Mono<Void> deleteMessageById(@PathVariable("id") String id) {
         return messageUseCase.deleteMessageById(id);
     }
 
     @PutMapping
+    @ResponseStatus(HttpStatus.OK)
     public Mono<MessageDto>  updateMessage(@RequestBody MessageDto messageDto){
         return messageUseCase.updateMessage(messageDto);
     }

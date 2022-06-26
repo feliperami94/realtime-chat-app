@@ -79,6 +79,12 @@ public class UserUseCase {
         return repository.deleteById(userId).doOnError(throwable -> Mono.error(throwable.getCause()));
     }
 
+
+    /**
+     * Update User
+     * @param userDto UserDto
+     * @return UserDto
+     */
     public Mono<UserDto> updateUser(UserDto userDto) {
         Query query = new Query().addCriteria(Criteria.where("_id").is(userDto.getId()));
         Update update = new Update().set("userName", userDto.getUserName())
