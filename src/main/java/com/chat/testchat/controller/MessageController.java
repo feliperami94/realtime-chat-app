@@ -32,13 +32,13 @@ public class MessageController {
     @GetMapping(path = "/channel/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Flux<MessageDto> findByIdReceiver(@PathVariable("id") String id) {
-        return messageUseCase.findByIdReceiver(id);
+        return messageUseCase.findAllByIdReceiver(id);
     }
 
     @GetMapping(path = "/private/{idSender}/{idReceiver}")
     public Flux<MessageDto> findByIdSenderAndIdReceiver(@PathVariable("idSender") String idSender,
                                                         @PathVariable("idReceiver") String idReceiver) {
-        return messageUseCase.findByIdSenderAndIdReceiver(idSender, idReceiver);
+        return messageUseCase.findAllByIdSenderAndIdReceiver(idSender, idReceiver);
     }
 
     @DeleteMapping(path = "/{id}")

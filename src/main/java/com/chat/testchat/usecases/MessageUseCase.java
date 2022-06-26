@@ -28,8 +28,8 @@ public class MessageUseCase {
      * @param id String
      * @return Flux[Message]
      */
-    public Flux<MessageDto> findByIdReceiver(String id) {
-        return repository.findByIdReceiver(id)
+    public Flux<MessageDto> findAllByIdReceiver(String id) {
+        return repository.findAllByIdReceiver(id)
                 .map(mapper::messageToMessageDTO)
                 .switchIfEmpty(Mono.error(new Throwable("There's no such channel id")));
     }
@@ -41,8 +41,8 @@ public class MessageUseCase {
      * @param idReceiver String
      * @return Flux[Message]
      */
-    public Flux<MessageDto> findByIdSenderAndIdReceiver(String idSender, String idReceiver) {
-        return repository.findByIdSenderAndIdReceiver(idSender, idReceiver)
+    public Flux<MessageDto> findAllByIdSenderAndIdReceiver(String idSender, String idReceiver) {
+        return repository.findAllByIdSenderAndIdReceiver(idSender, idReceiver)
                 .map(mapper::messageToMessageDTO)
                 .switchIfEmpty(Mono.error(new Throwable("There's no such user id")));
     }
