@@ -39,21 +39,33 @@ public class UserController {
         return userUseCase.findAllUsers();
     }
 
+    @GetMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Mono<UserDto> getUserById(@PathVariable("id") String id) {
+        return userUseCase.findUserById(id);
+    }
+
+    @GetMapping(path = "/{email}")
+    @ResponseStatus(HttpStatus.OK)
+    private Mono<UserDto> getUserByEmail(@PathVariable("email") String email) {
+        return userUseCase.findUserByEmail(email);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<UserDto> createUser(@RequestBody UserDto userDto) {
         return userUseCase.createUser(userDto);
     }
 
-    @DeleteMapping(value = "/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<Void> deleteUser(@PathVariable("id") String userId) {
-        return userUseCase.deleteUser(userId);
-    }
-
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public Mono<UserDto> updateUser(@RequestBody UserDto userDto) {
         return userUseCase.updateUser(userDto);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Mono<Void> deleteUser(@PathVariable("id") String userId) {
+        return userUseCase.deleteUser(userId);
     }
 }
