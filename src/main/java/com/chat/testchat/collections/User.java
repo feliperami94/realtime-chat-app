@@ -21,4 +21,5 @@ public class User {
     private String userName;
     private String email;
     private List<String> contacts;
+    private Boolean isLogged;
 }

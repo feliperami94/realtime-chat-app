@@ -89,7 +89,8 @@ public class UserUseCase {
         Query query = new Query().addCriteria(Criteria.where("_id").is(userDto.getId()));
         Update update = new Update().set("userName", userDto.getUserName())
                 .set("email", userDto.getEmail())
-                .set("contacts", userDto.getContacts());
+                .set("contacts", userDto.getContacts())
+                .set("isLogged", userDto.getIsLogged());
         return mongoTemplate.findAndModify(query, update, User.class).map(userMapper::userToUserDTO);
     }
 

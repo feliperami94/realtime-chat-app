@@ -15,4 +15,5 @@ public class UserDto {
     private String userName;
     private String email;
     private List<String> contacts;
+    private Boolean isLogged;
 }
