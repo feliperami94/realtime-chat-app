@@ -8,6 +8,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import reactor.core.publisher.Mono;
 
 import java.time.Instant;
 
@@ -27,20 +28,18 @@ public class ChatController {
 
     @MessageMapping("/message")
     @SendTo("/chatroom/public")
-    public MessageDto receiveMessage(@Payload MessageDto message) {
+    public Mono<MessageDto> receiveMessage(@Payload MessageDto message) {
         System.out.println(message);
         message.setCreationDate(Instant.now());
-        useCase.createMessage(message).subscribe();
-        return message;
+        return useCase.createMessage(message);
     }
 
     @MessageMapping("/private-message")
-    public MessageDto recMessage(@Payload MessageDto message) {
+    public Mono<MessageDto> recMessage(@Payload MessageDto message) {
         message.setCreationDate(Instant.now());
         simpMessagingTemplate.convertAndSendToUser(message.getIdReceiver(), "/private", message);
 
         System.out.println(message);
-        useCase.createMessage(message).subscribe();
-        return message;
+        return useCase.createMessage(message);
     }
 }
