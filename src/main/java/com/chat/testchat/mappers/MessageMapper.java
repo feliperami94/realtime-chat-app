@@ -4,6 +4,12 @@ import com.chat.testchat.Dto.MessageDto;
 import com.chat.testchat.collections.Message;
 import org.springframework.stereotype.Component;
 
+/**
+ * MessageMapper
+ * @author feliperami94
+ * @version 0.0.1
+ * @since 0.0.1
+ */
 @Component
 public class MessageMapper {
 

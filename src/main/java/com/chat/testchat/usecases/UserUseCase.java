@@ -1,7 +1,6 @@
 package com.chat.testchat.usecases;
 
 import com.chat.testchat.Dto.UserDto;
-import com.chat.testchat.collections.Channel;
 import com.chat.testchat.collections.User;
 import com.chat.testchat.mappers.UserMapper;
 import com.chat.testchat.repository.UserRepository;
@@ -16,6 +15,7 @@ import reactor.core.publisher.Mono;
 
 /**
  * UserUseCase - services
+ *
  * @author dannielf - feliperami94
  * @version 0.0.1
  * @since 0.0.1
@@ -52,31 +52,34 @@ public class UserUseCase {
 
     /**
      * Find All Users in the Database
+     *
      * @return UserDto
      */
-    public Flux<UserDto> findAllUsers(){
+    public Flux<UserDto> findAllUsers() {
         return repository.findAll().map(userMapper::userToUserDTO);
     }
 
     /**
      * Create a User in the Database
+     *
      * @param userDto UserDto
      * @return UserDto
      */
-    public Mono<UserDto> createUser(UserDto userDto){
+    public Mono<UserDto> createUser(UserDto userDto) {
         return repository.save(userMapper.userDTOToUser(userDto)).map(userMapper::userToUserDTO);
     }
 
     /**
      * Delete a User in the Database by its id
+     *
      * @param userId String
      * @return Void
      */
-    public Mono<Void> deleteUser(String userId){
+    public Mono<Void> deleteUser(String userId) {
         return repository.deleteById(userId).doOnError(throwable -> Mono.error(throwable.getCause()));
     }
 
-    public Mono<UserDto> updateUser(UserDto userDto){
+    public Mono<UserDto> updateUser(UserDto userDto) {
         Query query = new Query().addCriteria(Criteria.where("_id").is(userDto.getId()));
         Update update = new Update().set("userName", userDto.getUserName())
                 .set("email", userDto.getEmail())

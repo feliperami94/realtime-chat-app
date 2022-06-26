@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.time.Instant;
-
 /**
  * ChannelUseCase - services
  *
@@ -32,6 +30,7 @@ public class ChannelUseCase {
 
     /**
      * Find a channel by its id
+     *
      * @param id String
      * @return Channel
      */
@@ -42,6 +41,7 @@ public class ChannelUseCase {
 
     /**
      * Find a channel by its name
+     *
      * @param name String
      * @return Channel
      */
@@ -51,50 +51,51 @@ public class ChannelUseCase {
     }
 
     /**
-     *  Find all channels
+     * Find all channels
+     *
      * @return Channels
      */
 
-    public Flux<ChannelDto> findAllChannels(){
+    public Flux<ChannelDto> findAllChannels() {
 
         return repository.findAll().map(channelMapper::channelToChannelDTO);
     }
 
     /**
      * Create Channel
+     *
      * @param channelDto ChannelDto
      * @return ChannelDto
      */
 
-    public Mono<ChannelDto> createChannel(ChannelDto channelDto){
+    public Mono<ChannelDto> createChannel(ChannelDto channelDto) {
 
         return repository.save(channelMapper.channelDTOToChannel(channelDto)).map(channelMapper::channelToChannelDTO);
     }
 
     /**
      * Delete Channel by its Id
+     *
      * @param channelId String
      * @return Void
      */
-    public Mono<Void> deleteChannel(String channelId){
+    public Mono<Void> deleteChannel(String channelId) {
         return repository.deleteById(channelId).doOnError(throwable -> Mono.error(throwable.getCause()));
     }
 
 
     /**
      * Update Channel
+     *
      * @param channelDto ChannelDto
      * @return ChannelDto
      */
-    public Mono<ChannelDto> updateChannel(ChannelDto channelDto){
+    public Mono<ChannelDto> updateChannel(ChannelDto channelDto) {
         Query query = new Query().addCriteria(Criteria.where("_id").is(channelDto.getId()));
         Update update = new Update().set("name", channelDto.getName())
                 .set("description", channelDto.getDescription());
         return mongoTemplate.findAndModify(query, update, Channel.class).map(channelMapper::channelToChannelDTO);
     }
-
-
-
 
 
 }

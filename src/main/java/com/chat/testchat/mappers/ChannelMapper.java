@@ -4,6 +4,12 @@ import com.chat.testchat.Dto.ChannelDto;
 import com.chat.testchat.collections.Channel;
 import org.springframework.stereotype.Component;
 
+/**
+ * ChannelMapper
+ * @author feliperami94
+ * @version 0.0.1
+ * @since 0.0.1
+ */
 @Component
 public class ChannelMapper {
 
