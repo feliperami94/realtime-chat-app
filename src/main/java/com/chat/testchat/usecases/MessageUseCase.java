@@ -1,12 +1,20 @@
 package com.chat.testchat.usecases;
 
 import com.chat.testchat.Dto.MessageDto;
+import com.chat.testchat.collections.Message;
+import com.chat.testchat.collections.User;
 import com.chat.testchat.mappers.MessageMapper;
 import com.chat.testchat.repository.MessageRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.time.Instant;
 
 /**
  * MessageUseCase - services
@@ -21,6 +29,7 @@ public class MessageUseCase {
 
     private final MessageRepository repository;
     private final MessageMapper mapper;
+    private final ReactiveMongoTemplate mongoTemplate;
 
     /**
      * Find messages by channel id
@@ -67,5 +76,21 @@ public class MessageUseCase {
     public Mono<Void> deleteMessageById(String id) {
         return repository.deleteById(id)
                 .doOnError(throwable -> Mono.error(throwable.getCause()));
+    }
+
+
+    /**
+     * Update Message
+     * @param messageDto MessageDto
+     * @return MessageDto
+     */
+
+    public Mono<MessageDto> updateMessage(MessageDto messageDto) {
+        Query query = new Query().addCriteria(Criteria.where("_id").is(messageDto.getId()));
+        Update update = new Update().set("message", messageDto.getMessage())
+                .set("creationDate", Instant.now())
+                .set("status", messageDto.getStatus())
+                .set("isSeen", messageDto.getIsSeen());
+        return mongoTemplate.findAndModify(query, update, Message.class).map(mapper::messageToMessageDTO);
     }
 }

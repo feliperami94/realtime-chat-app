@@ -6,12 +6,7 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -44,5 +39,10 @@ public class MessageController {
     @DeleteMapping(path = "/{id}")
     public Mono<Void> deleteMessageById(@PathVariable("id") String id) {
         return messageUseCase.deleteMessageById(id);
+    }
+
+    @PutMapping
+    public Mono<MessageDto>  updateMessage(@RequestBody MessageDto messageDto){
+        return messageUseCase.updateMessage(messageDto);
     }
 }

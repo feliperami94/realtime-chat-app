@@ -42,4 +42,6 @@ public class ChatController {
         System.out.println(message);
         return useCase.createMessage(message);
     }
+
+
 }
