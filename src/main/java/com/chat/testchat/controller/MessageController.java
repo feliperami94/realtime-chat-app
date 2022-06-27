@@ -19,6 +19,7 @@ import reactor.core.publisher.Mono;
 @RestControllerAdvice
 @AllArgsConstructor
 @RequestMapping(path = "/messages")
+@CrossOrigin(origins = "*")
 public class MessageController {
 
     private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
