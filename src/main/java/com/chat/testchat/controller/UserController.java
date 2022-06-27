@@ -38,7 +38,7 @@ public class UserController {
         return userUseCase.findUserById(id);
     }
 
-    @GetMapping(path = "/{email}")
+    @GetMapping(path = "/userEmail/{email}")
     @ResponseStatus(HttpStatus.OK)
     private Mono<UserDto> getUserByEmail(@PathVariable("email") String email) {
         return userUseCase.findUserByEmail(email);
