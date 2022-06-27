@@ -90,7 +90,8 @@ public class UserUseCase {
         Update update = new Update().set("userName", userDto.getUserName())
                 .set("email", userDto.getEmail())
                 .set("contacts", userDto.getContacts())
-                .set("isLogged", userDto.getIsLogged());
+                .set("isLogged", userDto.getIsLogged())
+                .set("ipAddress", userDto.getIpAddress());
         return mongoTemplate.findAndModify(query, update, User.class).map(userMapper::userToUserDTO);
     }
 

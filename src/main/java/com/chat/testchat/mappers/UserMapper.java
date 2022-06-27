@@ -20,7 +20,8 @@ public class UserMapper {
                 user.getUserName(),
                 user.getEmail(),
                 user.getContacts(),
-                user.getIsLogged()
+                user.getIsLogged(),
+                user.getIpAddress()
         );
     }
 
@@ -30,7 +31,8 @@ public class UserMapper {
                 userDto.getUserName(),
                 userDto.getEmail(),
                 userDto.getContacts(),
-                userDto.getIsLogged()
+                userDto.getIsLogged(),
+                userDto.getIpAddress()
         );
     }
 }
