@@ -56,7 +56,7 @@ public class UserController {
         return userUseCase.updateUser(userDto);
     }
 
-    @DeleteMapping(value = "/deleteUser/{id}")
+    @DeleteMapping(path = "/deleteUser/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Mono<Void> deleteUser(@PathVariable("id") String userId) {
         return userUseCase.deleteUser(userId);
