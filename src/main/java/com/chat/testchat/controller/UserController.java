@@ -58,7 +58,7 @@ public class UserController {
 
     @DeleteMapping(path = "/deleteUser/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<Void> deleteUser(@PathVariable("id") String userId) {
-        return userUseCase.deleteUser(userId);
+    public Mono<Void> deleteUser(@PathVariable("id") String id) {
+        return userUseCase.deleteUser(id);
     }
 }
