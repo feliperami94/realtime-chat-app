@@ -85,14 +85,20 @@ public class UserUseCase {
      * @param userDto UserDto
      * @return UserDto
      */
-    public Mono<UserDto> updateUser(UserDto userDto) {
-        Query query = new Query().addCriteria(Criteria.where("_id").is(userDto.getId()));
-        Update update = new Update().set("userName", userDto.getUserName())
-                .set("email", userDto.getEmail())
-                .set("contacts", userDto.getContacts())
-                .set("isLogged", userDto.getIsLogged())
-                .set("ipAddress", userDto.getIpAddress());
-        return mongoTemplate.findAndModify(query, update, User.class).map(userMapper::userToUserDTO);
+    public Mono<UserDto> updateUser(UserDto userDto){
+        return repository.save(userMapper.userDTOToUser(userDto)).map(userMapper::userToUserDTO);
     }
+
+//    public Mono<UserDto> updateUser(UserDto userDto) {
+//        Query query = new Query().addCriteria(Criteria.where("_id").is(userDto.getId()));
+//        Update update = new Update().set("userName", userDto.getUserName())
+//                .set("email", userDto.getEmail())
+//                .set("contacts", userDto.getContacts())
+//                .set("isLogged", userDto.getIsLogged())
+//                .set("ipAddress", userDto.getIpAddress());
+//        return mongoTemplate.findAndModify(query, update, User.class).map(userMapper::userToUserDTO);
+//    }
+
+
 
 }

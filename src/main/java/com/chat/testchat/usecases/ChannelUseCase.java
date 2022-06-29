@@ -91,11 +91,15 @@ public class ChannelUseCase {
      * @return ChannelDto
      */
     public Mono<ChannelDto> updateChannel(ChannelDto channelDto) {
-        Query query = new Query().addCriteria(Criteria.where("_id").is(channelDto.getId()));
-        Update update = new Update().set("name", channelDto.getName())
-                .set("description", channelDto.getDescription());
-        return mongoTemplate.findAndModify(query, update, Channel.class).map(channelMapper::channelToChannelDTO);
+        return repository.save(channelMapper.channelDTOToChannel(channelDto)).map(channelMapper::channelToChannelDTO);
     }
+//    public Mono<ChannelDto> updateChannel(ChannelDto channelDto) {
+//        Query query = new Query().addCriteria(Criteria.where("_id").is(channelDto.getId()));
+//        Update update = new Update().set("name", channelDto.getName())
+//                .set("description", channelDto.getDescription());
+//        return mongoTemplate.findAndModify(query, update, Channel.class).map(channelMapper::channelToChannelDTO);
+//    }
+
 
 
 }

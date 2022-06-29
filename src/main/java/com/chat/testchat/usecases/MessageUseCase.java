@@ -59,11 +59,11 @@ public class MessageUseCase {
     /**
      * Create a new message
      *
-     * @param message MessageDto
+     * @param messageDto MessageDto
      * @return MessageDto
      */
-    public Mono<MessageDto> createMessage(MessageDto message) {
-        return repository.save(mapper.messageDTOToMessage(message))
+    public Mono<MessageDto> createMessage(MessageDto messageDto) {
+        return repository.save(mapper.messageDTOToMessage(messageDto))
                 .map(mapper::messageToMessageDTO);
     }
 
@@ -84,13 +84,17 @@ public class MessageUseCase {
      * @param messageDto MessageDto
      * @return MessageDto
      */
-
     public Mono<MessageDto> updateMessage(MessageDto messageDto) {
-        Query query = new Query().addCriteria(Criteria.where("_id").is(messageDto.getId()));
-        Update update = new Update().set("message", messageDto.getMessage())
-                .set("creationDate", Instant.now())
-                .set("status", messageDto.getStatus())
-                .set("isSeen", messageDto.getIsSeen());
-        return mongoTemplate.findAndModify(query, update, Message.class).map(mapper::messageToMessageDTO);
+        return repository.save(mapper.messageDTOToMessage(messageDto))
+                .map(mapper::messageToMessageDTO);
     }
+
+//    public Mono<MessageDto> updateMessage(MessageDto messageDto) {
+//        Query query = new Query().addCriteria(Criteria.where("_id").is(messageDto.getId()));
+//        Update update = new Update().set("message", messageDto.getMessage())
+//                .set("creationDate", Instant.now())
+//                .set("status", messageDto.getStatus())
+//                .set("isSeen", messageDto.getIsSeen());
+//        return mongoTemplate.findAndModify(query, update, Message.class).map(mapper::messageToMessageDTO);
+//    }
 }
