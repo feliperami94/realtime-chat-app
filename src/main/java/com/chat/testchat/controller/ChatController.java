@@ -3,6 +3,7 @@ package com.chat.testchat.controller;
 import com.chat.testchat.Dto.MessageDto;
 import com.chat.testchat.usecases.MessageUseCase;
 import lombok.AllArgsConstructor;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -41,6 +42,15 @@ public class ChatController {
         message.setCreationDate(Instant.now());
         simpMessagingTemplate.convertAndSendToUser(message.getIdReceiver(), "/private", message);
 
+        System.out.println(message);
+        return useCase.createMessage(message);
+    }
+
+    @MessageMapping("/channel/{channelId}") // stompClient.send => /app/channel/{channelId}
+    // stompClient.subscribe("/chatroom/{channelId})
+    public Mono<MessageDto> recChannelMessage(@DestinationVariable String channelId, @Payload MessageDto message) {
+        message.setCreationDate(Instant.now());
+        simpMessagingTemplate.convertAndSend("/chatroom/"+channelId, message);
         System.out.println(message);
         return useCase.createMessage(message);
     }
